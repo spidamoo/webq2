@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html style="margin: 0px;overflow: hidden">
+    <head>
+        <title>webq2</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+        <script src="js/Construction.js"></script>
+        <script src="js/Particle.js"></script>
+        <script src="js/Character.js"></script>
+    </head>
+    <body style="background-color:#CCC;margin: 0px;overflow: hidden">
+
+        <script>
+            // The application will create a renderer using WebGL, if possible,
+            // with a fallback to a canvas render. It will also setup the ticker
+            // and the root stage PIXI.Container
+            const app = new PIXI.Application();
+            app.renderer.autoResize = true;
+            app.renderer.resize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(app.view);
+
+            const enemies = [];
+            let bunny;
+            const particles = [];
+
+            // const particle_container = new PIXI.particles.ParticleContainer(10000, {
+            //     scale: true,
+            //     position: true,
+            //     rotation: true,
+            //     alpha: true,
+            //     uvs: true,
+            // });
+            // const particle_container = new PIXI.Container();
+            const particle_container = app.stage;
+
+            const floors = [];
+            const walls  = [];
+            // var debug_text = new PIXI.Text('0', new PIXI.TextStyle({fill: '#ffffff'}));
+            // debug_text.x = 0;
+            // debug_text.y = 0;
+            // app.stage.addChild(debug_text);
+
+            // load the texture we need
+            PIXI.loader
+                .add('bunny', 'bunny.png')
+                .add('circle', 'circle.png')
+            .load((loader, resources) => {
+                generate_level();
+                bunny = new Character(app);
+
+                // Listen for frame updates
+                app.ticker.add(() => {
+                    const dt = 0.016;//app.ticker.elapsedMS * 0.001;
+
+                    bunny.update(dt);
+                    enemies.forEach( char => {
+                        char.update(dt);
+                    });
+                    particles.forEach(particle => {
+                        if (particle === undefined) {
+                            return;
+                        }
+                        particle.update(dt);
+                    });
+
+                    // debug_text.text =
+                    //     bunny.x.toFixed(3) + ';' + bunny.y.toFixed(3) + "\n" +
+                    //     bunny.dx.toFixed(3) + ';' + bunny.dy.toFixed(3)
+                    //     ;
+                });
+
+                //Attach event listeners
+                document.onkeydown = event => bunny.handle_keydown(event);
+                document.onkeyup   = event => bunny.handle_keyup(event);
+                document.onclick   = event => bunny.handle_click(event);
+            });
+        </script>
+    </body>
+</html>
