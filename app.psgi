@@ -6,9 +6,6 @@ use warnings;
 use lib 'lib';
 use feature 'say';
 
-use IO::All;
-# use Template;
-
 # TODO: move to the tools pm?
 use constant DEBUG => $ENV{DEBUG} // $ENV{PLACK_ENV} // '' eq 'development';
 
@@ -31,19 +28,6 @@ my %static_files = (
     '/js/Game.js'           => 0,
     '/js/Dijkstras.js'      => 0,
 );
-my %html = (
-    # 'index._.html' => 'index.html',
-);
-
-if (DEBUG) {
-    # my $tt = Template->new({});
-    while (my ($from, $to) = each %html) {
-        # $tt->process($from, undef, $to);
-        my $text = io($from)->slurp();
-        $text =~ s/\[%(.+?)%\]/eval $1/eg;
-        io($to)->print($text);
-    }
-}
  
 sub {
     my $env = shift;
