@@ -326,8 +326,6 @@ function generate_level () {
             });
         });
     });
-
-    console.log(graph_nodes);
 }
 
 function draw_level() {

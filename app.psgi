@@ -27,6 +27,7 @@ my %static_files = (
     '/js/Enemy.js'          => 0,
     '/js/Game.js'           => 0,
     '/js/Dijkstras.js'      => 0,
+    '/favicon.ico'          => 0,
 );
  
 sub {
