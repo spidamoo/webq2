@@ -17,10 +17,19 @@ use if DEBUG, 'Data::Dumper';
 my %static_files = (
     '/'                     => {fn => 'index.html', headers => ['Content-Type' => 'text/html; charset=utf-8']},
     '/bunny.png'            => 0,
+    '/carrot.png'           => 0,
+    '/dead_bunny.png'       => 0,
     '/circle.png'           => 0,
+    '/turret.png'           => 0,
+    '/turret_gun.png'       => 0,
+    '/gradient.png'         => 0,
+    '/ray.png'              => 0,
     '/js/Character.js'      => 0,
     '/js/Construction.js'   => 0,
     '/js/Particle.js'       => 0,
+    '/js/Enemy.js'          => 0,
+    '/js/Game.js'           => 0,
+    '/js/Dijkstras.js'      => 0,
 );
 my %html = (
     # 'index._.html' => 'index.html',

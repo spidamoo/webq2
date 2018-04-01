@@ -1,39 +1,23 @@
 <!DOCTYPE html>
-<html style="margin: 0px;overflow: hidden">
+<html style="margin: 0px;">
     <head>
         <title>webq2</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>
+        <script src="js/Dijkstras.js"></script>
+        <script src="js/Game.js"></script>
         <script src="js/Construction.js"></script>
         <script src="js/Particle.js"></script>
         <script src="js/Character.js"></script>
+        <script src="js/Enemy.js"></script>
     </head>
-    <body style="background-color:#CCC;margin: 0px;overflow: hidden">
+    <body style="background: #222; color: white;margin: 0px; font-family: Impact">
 
         <script>
-            // The application will create a renderer using WebGL, if possible,
-            // with a fallback to a canvas render. It will also setup the ticker
-            // and the root stage PIXI.Container
             const app = new PIXI.Application();
             app.renderer.autoResize = true;
-            app.renderer.resize(window.innerWidth, window.innerHeight);
+            app.renderer.resize(1600, 750);
             document.body.appendChild(app.view);
 
-            const enemies = [];
-            let bunny;
-            const particles = [];
-
-            // const particle_container = new PIXI.particles.ParticleContainer(10000, {
-            //     scale: true,
-            //     position: true,
-            //     rotation: true,
-            //     alpha: true,
-            //     uvs: true,
-            // });
-            // const particle_container = new PIXI.Container();
-            const particle_container = app.stage;
-
-            const floors = [];
-            const walls  = [];
             // var debug_text = new PIXI.Text('0', new PIXI.TextStyle({fill: '#ffffff'}));
             // debug_text.x = 0;
             // debug_text.y = 0;
@@ -42,37 +26,38 @@
             // load the texture we need
             PIXI.loader
                 .add('bunny', 'bunny.png')
+                .add('carrot', 'carrot.png')
+                .add('dead_bunny', 'dead_bunny.png')
                 .add('circle', 'circle.png')
+                .add('turret', 'turret.png')
+                .add('turret_gun', 'turret_gun.png')
+                .add('gradient', 'gradient.png')
+                .add('ray', 'ray.png')
             .load((loader, resources) => {
-                generate_level();
-                bunny = new Character(app);
+                init_particle_containers();
+                start_level();
 
                 // Listen for frame updates
                 app.ticker.add(() => {
                     const dt = 0.016;//app.ticker.elapsedMS * 0.001;
-
-                    bunny.update(dt);
-                    enemies.forEach( char => {
-                        char.update(dt);
-                    });
-                    particles.forEach(particle => {
-                        if (particle === undefined) {
-                            return;
-                        }
-                        particle.update(dt);
-                    });
-
-                    // debug_text.text =
-                    //     bunny.x.toFixed(3) + ';' + bunny.y.toFixed(3) + "\n" +
-                    //     bunny.dx.toFixed(3) + ';' + bunny.dy.toFixed(3)
-                    //     ;
+                    update_game(dt);
                 });
 
                 //Attach event listeners
-                document.onkeydown = event => bunny.handle_keydown(event);
-                document.onkeyup   = event => bunny.handle_keyup(event);
-                document.onclick   = event => bunny.handle_click(event);
+                document.onkeydown      = event => bunny.handle_keydown(event);
+                document.onkeyup        = event => bunny.handle_keyup(event);
+                document.onmousedown    = event => bunny.handle_click(event);
+                document.onmouseup      = event => bunny.handle_unclick(event);
+                document.onmousemove    = event => bunny.handle_mouse(event);
             });
         </script>
+        <div style="margin: 5px;
+          -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+          -webkit-text-stroke-width: 1px;
+          -webkit-text-stroke-color: black;
+        ">
+            Grab the carrot! Don't get yourself killed!
+            Use WSAD to move, 1, 2, 3 to select weapons, mouse to aim and shoot.
+        </div>
     </body>
 </html>
