@@ -93,7 +93,7 @@ class Stair extends Floor {
 
     draw() {
         this.graphics = new PIXI.Graphics();
-        this.graphics.lineStyle(LINE_WIDTH * 0.5, 0xAAAAAA, 1);
+        this.graphics.lineStyle(LINE_WIDTH * 0.5, 0x888888, 1);
         this.graphics.moveTo(this.x1, this.y1);
         this.graphics.lineTo(this.x2, this.y2);
 
