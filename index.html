@@ -9,8 +9,12 @@
         <script src="js/Particle.js"></script>
         <script src="js/Character.js"></script>
         <script src="js/Enemy.js"></script>
+        <style type="text/css">
+            div {margin-left: 5px;}
+            a {color: white;}
+        </style>
     </head>
-    <body style="background: #222; color: white;margin: 0px; font-family: Impact">
+    <body style="background: #222; color: white;margin: 0px;">
 
         <script>
             const app = new PIXI.Application();
@@ -51,13 +55,19 @@
                 document.onmousemove    = event => bunny.handle_mouse(event);
             });
         </script>
-        <div style="margin: 5px;
+        <div style="font-family: Impact;
           -webkit-text-fill-color: white; /* Will override color (regardless of order) */
           -webkit-text-stroke-width: 1px;
           -webkit-text-stroke-color: black;
         ">
             Grab the carrot! Don't get yourself killed!
             Use WSAD to move, 1, 2, 3 to select weapons, mouse to aim and shoot.
+            <br>
+            Window size should be at least 1600x750. Use your browser zoom if canvas does not fit.
+        </div>
+        <div style="font-family: Courier;">
+            <a href="https://github.com/spidamoo/webq2" target="blank">Source code</a>
+            &copy; <a href="http://spidamoo.ru" target="blank">Vladimir Zatoloka</a> 2018
         </div>
     </body>
 </html>
