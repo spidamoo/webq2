@@ -1,7 +1,7 @@
 const FLOOR = 1;
 const STAIR = 2;
 
-const LINE_WIDTH = 1;
+const LINE_WIDTH = 2;
 
 class Construction {
     constructor(x1, y1, x2, y2) {
@@ -93,7 +93,7 @@ class Stair extends Floor {
 
     draw() {
         this.graphics = new PIXI.Graphics();
-        this.graphics.lineStyle(LINE_WIDTH, 0xAAAAAA, 1);
+        this.graphics.lineStyle(LINE_WIDTH * 0.5, 0xAAAAAA, 1);
         this.graphics.moveTo(this.x1, this.y1);
         this.graphics.lineTo(this.x2, this.y2);
 
